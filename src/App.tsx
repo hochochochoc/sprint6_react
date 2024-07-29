@@ -189,7 +189,7 @@ const Calculator: React.FC = () => {
     <div className="flex w-full justify-around">
       <div className="flex w-4/5 flex-col">
         <div className="mt-5 hover:text-blue-500">
-          <button onClick={() => navigate("/")}>Frontender.itacademy </button>
+          <button onClick={() => navigate("/")}>Volver al Onboarding </button>
         </div>
         <div className="relative mt-5 rounded-2xl border border-gray-200 px-4 py-2 sm:px-10 sm:py-14">
           <img
