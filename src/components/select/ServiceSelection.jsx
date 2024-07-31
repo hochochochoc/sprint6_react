@@ -5,16 +5,7 @@ import PageLangInputs from "./PageLangInput";
 import DiscountButton from "./DiscountButton";
 
 const ServiceSelection = () => {
-  const {
-    selectedServices,
-    setSelectedServices,
-    pageCount,
-    setPageCount,
-    languageCount,
-    setLanguageCount,
-    isAnnual,
-    handleCheckboxChange,
-  } = useBudget();
+  const { selectedServices, isAnnual, handleCheckboxChange } = useBudget();
 
   const calculatePrice = (price) => {
     if (isAnnual) {
@@ -24,44 +15,60 @@ const ServiceSelection = () => {
   };
 
   return (
-    <div>
+    <div className="space-y-6">
       <DiscountButton />
       {checkboxData.map(({ title, description, price }) => (
-        <div key={title}>
-          <div className="my-8 flex w-auto flex-col rounded-lg border border-gray-100 py-6 shadow-lg">
-            <div>
-              <div className="flex justify-between">
-                <div className="ml-3 flex flex-col  pr-1 md:ml-7 md:pr-0">
-                  <h2 className="text-xl font-bold">{title}</h2>
-                  <p className="md:text-md text-sm">{description}</p>
-                </div>
+        <div
+          key={title}
+          className="transform transition-all duration-200 hover:scale-[1.02]"
+        >
+          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
+            <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+              {/* Title and Description */}
+              <div className="flex-1 space-y-2">
+                <h2 className="text-xl font-bold text-gray-900">{title}</h2>
+                <p className="text-sm text-gray-600 md:text-base">
+                  {description}
+                </p>
+              </div>
 
-                <div className="flex items-center text-2xl flex-col">
-                  <div className="text-sm font-semibold text-orange-400 text-center">
-                    {isAnnual && <p>Ahorra un 20%</p>}
-                    {!isAnnual && <br></br>}
-                  </div>
-                  <div className=" font-bold flex flex-row">
-                    <span className="text-md  md:text-2xl">
+              {/* Price Section */}
+              <div className="flex items-center justify-between space-x-4 md:flex-col md:items-end">
+                <div className="text-center">
+                  {isAnnual && (
+                    <p className="mb-1 text-sm font-medium text-orange-500">
+                      Ahorra un 20%
+                    </p>
+                  )}
+                  <div className="flex items-baseline justify-center">
+                    <span className="text-2xl font-bold text-gray-900 md:text-3xl">
                       {calculatePrice(price)}
                     </span>
-                    <span className="flex items-end pb-0.5 text-sm">€</span>
+                    <span className="ml-1 text-lg text-gray-600">€</span>
                   </div>
                 </div>
 
-                <div className="ml-4 mr-3 flex items-center md:mr-7">
+                {/* Checkbox */}
+                <label className="flex cursor-pointer items-center space-x-3">
                   <input
                     type="checkbox"
-                    className="accent-green-600"
-                    id={title}
+                    className="h-5 w-5 rounded border-gray-300 text-green-600 transition-colors focus:ring-green-500"
                     checked={selectedServices[title] || false}
                     onChange={() => handleCheckboxChange(title)}
                   />
-                  <p className="mb-1 ml-2 hidden text-sm md:block">Afegir</p>
-                </div>
+                  <span className="hidden text-sm text-gray-700 md:inline">
+                    Afegir
+                  </span>
+                </label>
               </div>
-              {title === "Web" && selectedServices.Web && <PageLangInputs />}
             </div>
+
+            {/* Language Inputs */}
+            {title === "Web" && selectedServices.Web && (
+              <div className="mt-6 border-t border-gray-100 pt-6">
+                <PageLangInputs />
+              </div>
+            )}
           </div>
         </div>
       ))}

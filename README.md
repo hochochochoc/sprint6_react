@@ -19,6 +19,7 @@ Npm run dev
 ## Functionality overview
 
 The example application is a budget logging site called "Presupostly".
+
 **General functionality**:
 
 - Selection of products, including page and language count for web pages
@@ -36,7 +37,3 @@ The example application is a budget logging site called "Presupostly".
 - Customization of current budget
 - Introduction of Contact information
 - Listing of created budgets
-
-```
-
-```
