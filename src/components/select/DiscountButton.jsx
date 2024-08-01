@@ -1,23 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import { useBudget } from "../../contexts/BudgetContext";
 
 const DiscountButton = () => {
   const { isAnnual, toggleIsAnnual } = useBudget();
 
   return (
-    <div>
-      <label className="flex justify-center cursor-pointer mt-3">
-        <span className="mr-3 text-xs font-medium text-gray-900 dark:text-gray-300">
+    <div className="flex justify-center py-4">
+      <label className="group flex items-center space-x-4 cursor-pointer">
+        <span
+          className={`text-sm font-medium transition-colors duration-200 ${
+            !isAnnual ? "text-gray-900" : "text-gray-500"
+          }`}
+        >
           Pagament mensual
         </span>
-        <input
-          type="checkbox"
-          checked={isAnnual}
-          onChange={toggleIsAnnual}
-          className="sr-only peer"
-        />
-        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-        <span className="ml-3 text-xs font-medium text-gray-900 dark:text-gray-300">
+
+        <div className="relative">
+          <input
+            type="checkbox"
+            checked={isAnnual}
+            onChange={toggleIsAnnual}
+            className="sr-only peer"
+          />
+          <div
+            className="h-7 w-14 rounded-full bg-gray-200 transition-colors duration-200 
+                        peer-focus:ring-4 peer-focus:ring-green-100
+                        peer-checked:bg-green-500"
+          ></div>
+          <div
+            className="absolute left-1 top-1 h-5 w-5 transform rounded-full 
+                        bg-white shadow-md transition-transform duration-200 
+                        peer-checked:translate-x-7"
+          ></div>
+        </div>
+
+        <span
+          className={`text-sm font-medium transition-colors duration-200 ${
+            isAnnual ? "text-gray-900" : "text-gray-500"
+          }`}
+        >
           Pagament anual
         </span>
       </label>
