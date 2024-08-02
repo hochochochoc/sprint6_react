@@ -3,120 +3,70 @@ import { useBudget } from "../../contexts/BudgetContext";
 import InfoLang from "./info/InfoLang";
 import InfoPage from "./info/InfoPage";
 
+const NumberInput = ({ value, onChange, onIncrement, onDecrement }) => (
+  <div className="flex items-center space-x-2">
+    <button
+      className="flex h-6 w-6 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+      onClick={onDecrement}
+    >
+      <svg className="h-3 w-3 text-gray-500" fill="none" viewBox="0 0 18 2">
+        <path
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M1 1h16"
+        />
+      </svg>
+    </button>
+
+    <input
+      className="h-8 w-12 rounded-md border border-gray-300 text-center text-sm outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
+      type="number"
+      value={value}
+      onChange={onChange}
+    />
+
+    <button
+      className="flex h-6 w-6 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+      onClick={onIncrement}
+    >
+      <svg className="h-3 w-3 text-gray-500" fill="none" viewBox="0 0 18 18">
+        <path
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 1v16M1 9h16"
+        />
+      </svg>
+    </button>
+  </div>
+);
+
 const PageLangInputs = () => {
   const { pageCount, setPageCount, langCount, setLangCount } = useBudget();
 
   return (
-    <div className="flex flex-col space-y-2">
-      <div className="mr-3 flex justify-end md:mr-7 items-center">
+    <div className="space-y-4">
+      <div className="flex items-center justify-end space-x-3">
         <InfoLang />
-        <button
-          className=" mx-1 flex h-3 w-3 items-center justify-center rounded-lg border border-gray-400 text-xs leading-none text-gray-400"
-          onClick={() => {
-            const newCount = pageCount > 1 ? pageCount - 1 : pageCount;
-            setPageCount(newCount);
-          }}
-        >
-          <svg
-            className="h-2 w-2 text-gray-400 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 18 2"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1h16"
-            />
-          </svg>
-        </button>
-        <input
-          className="w-8 h-6 rounded-lg border border-gray-400 text-center outline-none text-sm"
-          type="number"
+        <NumberInput
           value={pageCount}
           onChange={(e) => setPageCount(Number(e.target.value))}
+          onDecrement={() => setPageCount(Math.max(1, pageCount - 1))}
+          onIncrement={() => setPageCount(pageCount + 1)}
         />
-        <button
-          className="mx-1 flex h-3 w-3 items-center justify-center rounded-lg border border-gray-400 text-xs leading-none text-gray-400"
-          onClick={() => {
-            const newCount = pageCount + 1;
-            setPageCount(newCount);
-          }}
-        >
-          <svg
-            className="h-2 w-2 text-gray-400 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 18 18"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 1v16M1 9h16"
-            />
-          </svg>
-        </button>
       </div>
-      <div className="mr-3 flex justify-end md:mr-7 items-center">
+
+      <div className="flex items-center justify-end space-x-3">
         <InfoPage />
-        <button
-          className="mx-1 flex h-3 w-3 items-center justify-center rounded-lg border border-gray-400 text-xs leading-none text-gray-400"
-          onClick={() => {
-            const newCount = langCount > 1 ? langCount - 1 : langCount;
-            setLangCount(newCount);
-          }}
-        >
-          <svg
-            className="h-2 w-2 text-gray-400 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 18 2"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1h16"
-            />
-          </svg>
-        </button>
-        <input
-          className="w-8 h-6 rounded-lg border border-gray-400 text-center outline-none text-sm"
-          type="number"
+        <NumberInput
           value={langCount}
           onChange={(e) => setLangCount(Number(e.target.value))}
+          onDecrement={() => setLangCount(Math.max(1, langCount - 1))}
+          onIncrement={() => setLangCount(langCount + 1)}
         />
-        <button
-          className="mx-1 flex h-3 w-3 items-center justify-center rounded-lg border border-gray-400 text-xs leading-none text-gray-400"
-          onClick={() => {
-            const newCount = langCount + 1;
-            setLangCount(newCount);
-          }}
-        >
-          <svg
-            className="h-2 w-2 text-gray-400 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 18 18"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 1v16M1 9h16"
-            />
-          </svg>
-        </button>
       </div>
     </div>
   );
